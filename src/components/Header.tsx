@@ -10,6 +10,7 @@ interface HeaderProps {
   showMenu?: boolean;
   onMenuClick?: () => void;
   onLanguageClick?: () => void;
+  className?: string; // Add className prop
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -18,6 +19,7 @@ const Header: React.FC<HeaderProps> = ({
   showMenu = false,
   onMenuClick,
   onLanguageClick,
+  className = '',
 }) => {
   const navigate = useNavigate();
   const { t } = useLanguage();
@@ -27,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="bg-loan-primary text-white p-4 flex items-center justify-between shadow-md">
+    <header className={`bg-loan-primary text-white p-4 flex items-center justify-between shadow-md ${className}`}>
       <div className="flex items-center">
         {showBack && (
           <button
