@@ -1,9 +1,23 @@
 
-/* Remove absolute sizing and padding for mobile */
+/* Mobile-first styling */
 #root {
   width: 100%;
   margin: 0 auto;
   text-align: center;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  max-width: 100%;
+}
+
+body {
+  touch-action: manipulation;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+}
+
+/* Remove blue highlight on mobile taps */
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .logo {
@@ -40,4 +54,55 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Mobile specific styles */
+input, button, select, textarea {
+  font-size: 16px; /* Prevents iOS zoom on focus */
+}
+
+.mobile-container {
+  padding: 16px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background-color: white;
+  border-top: 1px solid #e5e7eb;
+  height: 60px;
+  z-index: 50;
+}
+
+/* Safe area insets for iOS */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottom-nav {
+    padding-bottom: env(safe-area-inset-bottom);
+    height: calc(60px + env(safe-area-inset-bottom));
+  }
+  
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Sidebar items */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  text-align: left;
+  transition: background-color 0.2s;
+}
+
+.sidebar-item:hover {
+  background-color: #f3f4f6;
 }
