@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useLoan } from '../context/LoanContext';
+import { useLoan, Loan } from '../context/LoanContext';
 import { useLanguage } from '../context/LanguageContext';
 import Header from '../components/Header';
 import BottomNavigation from '../components/BottomNavigation';
@@ -19,15 +19,6 @@ import {
   HelpCircle,
   LogOut,
 } from 'lucide-react';
-
-interface Loan {
-  id: string;
-  amount: number;
-  interestRate: number;
-  duration: number;
-  status: 'pending' | 'funded' | 'completed';
-  createdAt: string;
-}
 
 interface User {
   name: string;
