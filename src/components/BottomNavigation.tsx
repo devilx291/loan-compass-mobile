@@ -1,57 +1,62 @@
 
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
-import { Home, ClipboardList, Award, User } from 'lucide-react';
+import { Home, DollarSign, BarChart4, ClipboardList, User } from 'lucide-react';
 
-const BottomNavigation: React.FC = () => {
+interface BottomNavigationProps {
+  className?: string;
+}
+
+const BottomNavigation: React.FC<BottomNavigationProps> = ({ className = '' }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { t } = useLanguage();
   
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+  
+  const navItems = [
+    {
+      name: 'Home',
+      path: '/dashboard',
+      icon: Home,
+    },
+    {
+      name: 'Request',
+      path: '/request-loan',
+      icon: DollarSign,
+    },
+    {
+      name: 'History',
+      path: '/loan-history',
+      icon: ClipboardList,
+    },
+    {
+      name: 'Trust',
+      path: '/trust-score',
+      icon: BarChart4,
+    },
+    {
+      name: 'Profile',
+      path: '/profile',
+      icon: User,
+    },
+  ];
 
   return (
-    <nav className="bottom-nav">
-      <button
-        onClick={() => navigate('/dashboard')}
-        className={`flex flex-col items-center py-1 ${
-          isActive('/dashboard') ? 'text-loan-primary' : 'text-gray-500'
-        }`}
-      >
-        <Home size={24} />
-        <span className="text-xs mt-1">{t('common.home')}</span>
-      </button>
-      
-      <button
-        onClick={() => navigate('/loan-history')}
-        className={`flex flex-col items-center py-1 ${
-          isActive('/loan-history') ? 'text-loan-primary' : 'text-gray-500'
-        }`}
-      >
-        <ClipboardList size={24} />
-        <span className="text-xs mt-1">{t('common.history')}</span>
-      </button>
-      
-      <button
-        onClick={() => navigate('/trust-score')}
-        className={`flex flex-col items-center py-1 ${
-          isActive('/trust-score') ? 'text-loan-primary' : 'text-gray-500'
-        }`}
-      >
-        <Award size={24} />
-        <span className="text-xs mt-1">{t('trust.title')}</span>
-      </button>
-      
-      <button
-        onClick={() => navigate('/profile')}
-        className={`flex flex-col items-center py-1 ${
-          isActive('/profile') ? 'text-loan-primary' : 'text-gray-500'
-        }`}
-      >
-        <User size={24} />
-        <span className="text-xs mt-1">{t('common.profile')}</span>
-      </button>
+    <nav className={`bottom-nav ${className}`}>
+      {navItems.map((item) => (
+        <button
+          key={item.name}
+          onClick={() => navigate(item.path)}
+          className={`flex flex-col items-center justify-center w-full py-1 ${
+            isActive(item.path) ? 'text-blue-600' : 'text-gray-500'
+          }`}
+        >
+          <item.icon size={20} className={isActive(item.path) ? 'text-blue-600' : 'text-gray-500'} />
+          <span className="text-xs mt-1">{item.name}</span>
+        </button>
+      ))}
     </nav>
   );
 };

@@ -117,6 +117,35 @@
   }
   
   .bottom-nav {
-    @apply fixed bottom-0 left-0 right-0 flex justify-around items-center p-3 bg-white border-t border-gray-200;
+    @apply fixed bottom-0 left-0 right-0 flex justify-around items-center p-3 bg-white border-t border-gray-200 shadow-lg z-10;
+  }
+
+  /* New UI components */
+  .sidebar-item {
+    @apply flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-md;
+  }
+  
+  .sidebar-item.active {
+    @apply text-blue-600 bg-blue-50;
+  }
+  
+  .card-stat {
+    @apply flex justify-between items-center py-3 border-b border-gray-100;
+  }
+  
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors;
+  }
+  
+  .btn-outline {
+    @apply border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-4 rounded-lg transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply border border-gray-300 text-gray-700 hover:bg-gray-50 py-2 px-4 rounded-lg transition-colors;
+  }
+  
+  .trust-pill {
+    @apply bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full inline-flex items-center;
   }
 }

@@ -12,6 +12,7 @@ import { LanguageProvider } from "./context/LanguageContext";
 import LoginScreen from "./screens/LoginScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 import RequestLoanScreen from "./screens/RequestLoanScreen";
+import FundLoanScreen from "./screens/FundLoanScreen";
 import LoanHistoryScreen from "./screens/LoanHistoryScreen";
 import LoanDetailScreen from "./screens/LoanDetailScreen";
 import TrustScoreScreen from "./screens/TrustScoreScreen";
@@ -63,6 +64,14 @@ const App = () => {
                     element={
                       <ProtectedRoute>
                         <RequestLoanScreen />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/fund-loan" 
+                    element={
+                      <ProtectedRoute>
+                        <FundLoanScreen />
                       </ProtectedRoute>
                     } 
                   />
