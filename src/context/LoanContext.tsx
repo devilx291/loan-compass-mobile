@@ -74,10 +74,17 @@ export const LoanProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const response = await loanAPI.getLoanHistory();
       
       if (response.success && response.data) {
-        setLoans(response.data);
+        // Ensure each loan has a status that matches the Loan interface
+        const typedLoans: Loan[] = response.data.map(loan => ({
+          ...loan,
+          // Ensure status is one of the valid values
+          status: validateLoanStatus(loan.status)
+        }));
+        
+        setLoans(typedLoans);
         
         // Cache loans for offline access
-        await setItem('loans', response.data);
+        await setItem('loans', typedLoans);
       }
     } catch (e) {
       setError('Failed to load loans');
@@ -85,6 +92,22 @@ export const LoanProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } finally {
       setLoading(false);
     }
+  };
+
+  // Helper function to validate loan status
+  const validateLoanStatus = (status: string): 'Active' | 'Repaid' | 'Rejected' | 'Pending' => {
+    const validStatuses: ('Active' | 'Repaid' | 'Rejected' | 'Pending')[] = ['Active', 'Repaid', 'Rejected', 'Pending'];
+    
+    // Case-insensitive check
+    const normalizedStatus = status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
+    
+    if (validStatuses.includes(normalizedStatus as any)) {
+      return normalizedStatus as 'Active' | 'Repaid' | 'Rejected' | 'Pending';
+    }
+    
+    // Default fallback if the status is unexpected
+    console.warn(`Invalid loan status: ${status}, defaulting to 'Pending'`);
+    return 'Pending';
   };
 
   const requestLoan = async (amount: number, purpose: string) => {
