@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -129,9 +130,9 @@ const DashboardScreen = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-loan-background">
+    <div className="flex flex-col min-h-screen bg-loan-background max-w-md mx-auto w-full">
       <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
-        <SheetContent side="left" className="p-0">
+        <SheetContent side="left" className="p-0 max-w-[280px] sm:max-w-[280px]">
           {renderSidebar()}
         </SheetContent>
       </Sheet>
@@ -142,8 +143,8 @@ const DashboardScreen = () => {
         onLanguageClick={() => setIsLanguageModalOpen(true)}
       />
       
-      <div className="flex-1 p-4">
-        <h2 className="text-2xl font-bold mb-4">{t('dashboard.welcome')} {user?.name}!</h2>
+      <div className="flex-1 p-4 overflow-y-auto pb-20">
+        <h2 className="text-xl font-bold mb-4">{t('dashboard.welcome')} {user?.name}!</h2>
         
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-2">{t('dashboard.yourLoans')}</h3>
@@ -152,20 +153,24 @@ const DashboardScreen = () => {
               <LoanCard key={loan.id} loan={loan} />
             ))
           ) : (
-            <p>{t('dashboard.noLoans')}</p>
+            <p className="text-gray-500 text-sm py-2">{t('dashboard.noLoans')}</p>
           )}
         </div>
         
         <div>
           <h3 className="text-lg font-semibold mb-2">{t('dashboard.quickActions')}</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <button onClick={() => navigate('/request-loan')} className="btn-primary">{t('loan.requestLoan')}</button>
-            <button onClick={() => navigate('/fund-loan')} className="btn-outline">{t('loan.fundLoan')}</button>
+          <div className="grid grid-cols-2 gap-3">
+            <button onClick={() => navigate('/request-loan')} className="btn-primary py-3 text-sm">
+              {t('loan.requestLoan')}
+            </button>
+            <button onClick={() => navigate('/fund-loan')} className="btn-outline py-3 text-sm">
+              {t('loan.fundLoan')}
+            </button>
           </div>
         </div>
       </div>
       
-      <BottomNavigation />
+      <BottomNavigation className="max-w-md mx-auto w-full" />
       
       <LanguageSelector isOpen={isLanguageModalOpen} onClose={() => setIsLanguageModalOpen(false)} />
     </div>

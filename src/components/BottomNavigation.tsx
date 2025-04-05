@@ -53,8 +53,8 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ className = '' }) =
             isActive(item.path) ? 'text-blue-600' : 'text-gray-500'
           }`}
         >
-          <item.icon size={20} className={isActive(item.path) ? 'text-blue-600' : 'text-gray-500'} />
-          <span className="text-xs mt-1">{item.name}</span>
+          <item.icon size={18} className={isActive(item.path) ? 'text-blue-600' : 'text-gray-500'} />
+          <span className="text-xs mt-0.5">{item.name}</span>
         </button>
       ))}
     </nav>
